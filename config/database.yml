@@ -23,3 +23,6 @@ test:
 production:
   <<: *default
   database: db/production.sqlite3
+
+  #note the user.update_attribute(:name, "Text here") syntax to update a single attribute
+  #note how we can also use the above to update "magic columns"

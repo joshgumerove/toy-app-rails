@@ -5,3 +5,5 @@ class UserTest < ActiveSupport::TestCase
   #   assert true
   # end
 end
+
+#note that this folder was automatically created
