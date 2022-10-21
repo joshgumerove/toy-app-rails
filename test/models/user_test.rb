@@ -56,11 +56,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "password should be at least seven characters" do
-    invalid_passwords = %w[abc 12345 cool64]
-    invalid_passwords.each do |invalid_password|
-        @user.password = invalid_password
-        assert_not @user.valid?, "#{invalid_password.inspect} should be invalid"
-    end
+        @user.password = @user.password_confirmation = "a" * 5 #reasssigning both
+        assert_not @user.valid?
   end
 
 end
@@ -68,3 +65,6 @@ end
 #note that this folder was automatically created
 #note how we run the tests --> rails test:models 
 #note how we can multiply strings in Ruby
+#note the authenticate method and how we tested it in the console:
+# User.last.authenticate("password_here") --> will use this method later
+#to sign users in
