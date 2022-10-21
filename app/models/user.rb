@@ -4,6 +4,7 @@ class User < ApplicationRecord #note how it inherits from Application Record (wh
     validates :name, presence: true, length: {maximum: 50}
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i #note how it is completely fine to declare a variable above a validatioin
     validates :email, presence: true, length: {maximum: 255}, format: {with: VALID_EMAIL_REGEX}, uniqueness: true
+    validates :password, length: {minimum: 7, message: "password must be longer"}
     has_secure_password
 end
 
@@ -19,3 +20,5 @@ end
 #can authenticate users without storing the password themselves
 #note what is meant by password_digest -- neads to be added as an attribute for has_secure_password to work
 #note the syntax for creating a migration rails g migration add_password_digest_to_users password_digest:string
+#note --> for has_secure_password to work we need to add bcrypt
+#after adding has_secure_password -- tests will also fail again

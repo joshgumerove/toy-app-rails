@@ -6,7 +6,7 @@ class UserTest < ActiveSupport::TestCase
   # end
 
   def setup
-      @user = User.new(name: "Example User", email: "user@example.com")
+      @user = User.new(name: "Example User", email: "user@example.com", password: "foobar123", password_confirmation: "foobar123")
   end 
 
   test "should be valid" do 
@@ -53,6 +53,14 @@ class UserTest < ActiveSupport::TestCase
     duplicate_user = @user.dup
     @user.save
     assert_not duplicate_user.valid?
+  end
+
+  test "password should be at least seven characters" do
+    invalid_passwords = %w[abc 12345 cool64]
+    invalid_passwords.each do |invalid_password|
+        @user.password = invalid_password
+        assert_not @user.valid?, "#{invalid_password.inspect} should be invalid"
+    end
   end
 
 end
