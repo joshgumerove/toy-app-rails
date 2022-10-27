@@ -3,12 +3,24 @@
 <%= render @user %>
 <div>
     <h1>First Post</h1>
-    <p><%= @first_post %></p>
+    <%= gravatar_for(@user) %>
+    <p><%= @user.name %> <%= @user.email %> </p>
+        <p><%= @user.created_at %> <%= Time.now %> </p>
+
 <div>
 
 <div>
   <%= link_to "Edit this user", edit_user_path(@user) %> |
   <%= link_to "Back to users", users_path %>
-
   <%= button_to "Destroy this user", @user, method: :delete %>
+</div>
+<div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <h1>
+          <%= gravatar_for @user %>
+          <%= @user.name %>
+        </h1>
+      </section>
+    </aside>
 </div>
