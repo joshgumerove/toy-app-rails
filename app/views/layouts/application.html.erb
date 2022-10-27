@@ -13,9 +13,16 @@
   <body>
     
     <%= render 'layouts/header'%>
-    <%= yield %>
-    <%= render 'layouts/footer' %>
-    <%= debug(params) if Rails.env.development? %>
+    <div class="container">
+        <%= yield %>
+        <%= render 'layouts/footer' %>
+        <%= debug(params) if Rails.env.development? %>
+    </div>
+        <% flash.each do |flash_type, message| %>
+  <div class="flash__message">
+    <%= message %>
+  </div>
+<% end %>
     <%# the avoe will display the controller as well as the action %>
      <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
