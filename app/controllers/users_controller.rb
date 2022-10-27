@@ -12,6 +12,10 @@ class UsersController < ApplicationController
   @user = User.new(user_params)
     if @user.save
       # Handle a successful save.
+      # redirect 'show'
+      redirect_to @user #this will redirect to the user show page
+      # http://localhost:3000/users/16
+      #note the RESTful URL above
     else
       render 'new'
     end
@@ -21,4 +25,5 @@ private
     params.require(:user).permit(:name, :email, :password,
       :password_confirmation)
   end
+  # if successful we want to redirect to the show page
 end
