@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
   root 'static_pages#home'
   get 'static_pages/help'
   get '/about', to: "static_pages#about"
   get '/contact', to: "static_pages#contact"
   get '/help', to: "static_pages#help"
+  get '/login', to: "sessions#new"
+  post '/login', to: "sessions#create"
+  delete '/logout', to: "sessions#destroy"
   resources :microposts
   # :users -- this is an example of a symbol
   resources :users

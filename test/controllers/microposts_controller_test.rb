@@ -46,3 +46,5 @@ class MicropostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to microposts_url
   end
 end
+
+#note how we can pipe routes to grep to get specific routes
