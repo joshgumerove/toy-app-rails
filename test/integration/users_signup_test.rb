@@ -27,4 +27,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     end
 end
 # note how much is being tested via these integration tests for the users 
-#pages 
+# pages 
+# note the vulerability when submitting the signup form
+# the name email  and password are sent over the network and are vulnerable
