@@ -8,8 +8,8 @@ class SessionsController < ApplicationController
       puts "nailed it"
       redirect_to user #note this will redirect to the show page for this user
     else
-      puts "wrong password"
-    render 'new'
+    redirect_to '/login'
+    flash.notice = 'invalid email/password combination'
     end
   end
 
