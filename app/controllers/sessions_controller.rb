@@ -6,10 +6,12 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password]) #would return false for invalid password
       #do something here
       puts "nailed it"
+      log_in(user)
       redirect_to user #note this will redirect to the show page for this user
     else
     redirect_to '/login'
     flash.notice = 'invalid email/password combination'
+    # note how this is different from the lecture because we are using rails 7
     end
   end
 
@@ -26,3 +28,5 @@ end
 #note when we include an action a view is also generated
 
 #note main differencce between this and users controller is that there is no sessions model
+# @gumerove = @gumerove || "josh gumerove" notice this syntax available to use in rails
+# will assign a value if the value is nil
