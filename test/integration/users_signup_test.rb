@@ -24,6 +24,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     end
       follow_redirect!
       assert_template 'users/show'
+      assert is_logged_in?
     end
 end
 # note how much is being tested via these integration tests for the users 

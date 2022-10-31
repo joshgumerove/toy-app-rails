@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     if @user.save
       # Handle a successful save.
       # redirect 'show'
+      log_in @user #available here because defined it in the sessions helper which then included in the application controller
       redirect_to @user, notice: "Welcome to the Sample App!" #this will redirect to the user show page
       # http://localhost:3000/users/16
       #note the RESTful URL above

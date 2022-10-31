@@ -3,8 +3,9 @@ class SessionsController < ApplicationController
     # puts params[:session][:email] note how we can access the value
     # puts "cool"
     user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password]) #would return false for invalid password
+    # if user && user.authenticate(params[:session][:password]) #would return false for invalid password
       #do something here
+      if user&.authenticate(params[:session][:password]) #note the "safe navigation" shorthand operator
       puts "nailed it"
       log_in(user)
       redirect_to user #note this will redirect to the show page for this user
@@ -19,6 +20,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    # logout_path
+    # redirect_to root_url
   end
 
 end

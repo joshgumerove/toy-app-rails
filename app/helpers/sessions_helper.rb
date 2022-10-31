@@ -18,6 +18,10 @@ module SessionsHelper
         def logged_in?
             !current_user.nil? # if current_user is nil they are not logged_in
         end
+
+        def is_logged_in?
+            !session[:user_id].nil?
+        end
 end
 
 # note how this is automatically generated when we create the sessions controller
