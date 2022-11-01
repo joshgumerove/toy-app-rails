@@ -20,9 +20,13 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    # logout_path
+    puts "now redirecting"
+    log_out
+    redirect_to root_url
     # redirect_to root_url
   end
+
+  #note how we are only logging users out in the destroy action (unlike login)
 
 end
 

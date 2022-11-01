@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get '/help', to: "static_pages#help"
   get '/login', to: "sessions#new"
   post '/login', to: "sessions#create"
-  delete '/logout', to: "sessions#destroy"
+  get '/logout', to: "sessions#destroy"
   resources :microposts
   # :users -- this is an example of a symbol
   resources :users
