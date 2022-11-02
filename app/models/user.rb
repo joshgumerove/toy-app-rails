@@ -1,4 +1,5 @@
 class User < ApplicationRecord #note how it inherits from Application Record (which inherits from ActiveRecord::Base)
+    attr_accessor :remember_token #remeber attr_accessor is a method built into ruby
     before_create {self.email = email.downcase} #note -- this is an activerecord callback
     has_many :microposts
     validates :name, presence: true, length: {maximum: 50}
@@ -7,10 +8,19 @@ class User < ApplicationRecord #note how it inherits from Application Record (wh
     validates :password, presence: true, length: {minimum: 6}
     has_secure_password
 
-   def User.digest(string)
+   def self.digest(string) #note how we could also use self instead of capitalizing users
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
         BCrypt::Engine.cost
         BCrypt::Password.create(string, cost: cost)
+    end
+
+    def self.new_token #note how this is a class method
+        SecureRandom.urlsafe_base64
+    end
+
+    def remember #note how we can call this directly and it will assign the remember_digest (in our example was previously nil)
+        self.remember_token = User.new_token
+        update_attribute(:remember_digest, User.digest(remember_token)) #allows us to update a single attribute (note how we do not need to use self again after redifining it)
     end
 end
 
