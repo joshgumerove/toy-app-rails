@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
     # if user && user.authenticate(params[:session][:password]) #would return false for invalid password
       #do something here
       if user&.authenticate(params[:session][:password]) #note the "safe navigation" shorthand operator
-      puts "nailed it"
-      log_in(user)
+      log_in user
+      remember user
       redirect_to user #note this will redirect to the show page for this user
     else
     redirect_to '/login'
