@@ -24,7 +24,12 @@ class User < ApplicationRecord #note how it inherits from Application Record (wh
     end
 
     def authenticated?(remember_token)
+        return false if remember_digest.nil?
         BCrypt::Password.new(remember_digest).is_password?(remember_token)
+    end
+
+    def forget
+        update_attribute(:remember_digest, nil) #reverses the remember method
     end
 end
 

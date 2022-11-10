@@ -29,8 +29,16 @@ module SessionsHelper
             !session[:user_id].nil?
         end
 
+        def forget(user)
+            user.forget
+            cookies.delete(:user_id)
+            cookies.delete(:remember_token)
+        end
+
         def log_out
-            session.delete(:user_id)
+            forget(current_user) #now can log in and out
+            puts "hello world"
+            session.delete(:user_id) #note the delete method built into ruby available on hashes
             @current_user = nil
         end
 

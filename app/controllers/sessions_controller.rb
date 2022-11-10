@@ -7,9 +7,10 @@ class SessionsController < ApplicationController
       #do something here
       if user&.authenticate(params[:session][:password]) #note the "safe navigation" shorthand operator
       log_in user
-      remember user
+      params[:session][:remember_me] == "1" ? remember(user) : forget(user)
       redirect_to user #note this will redirect to the show page for this user
     else
+    #note the user of a ternary in rails/ruby
     redirect_to '/login'
     flash.notice = 'invalid email/password combination'
     # note how this is different from the lecture because we are using rails 7
@@ -21,7 +22,7 @@ class SessionsController < ApplicationController
 
   def destroy
     puts "now redirecting"
-    log_out
+    log_out if logged_in?
     redirect_to root_url
     # redirect_to root_url
   end

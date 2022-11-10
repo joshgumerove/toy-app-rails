@@ -28,6 +28,7 @@ class UsersController < ApplicationController
   
 private
   def user_params
+    debug
     params.require(:user).permit(:name, :email, :password,
       :password_confirmation)
   end
