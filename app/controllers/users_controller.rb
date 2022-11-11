@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update] #will run logged_in_user before edit and update action
-  #note how the above actions now require a logged in user
+  before_action :logged_in_user, only: [:edit, :update, :index] #will run logged_in_user before edit and update action
+                                                     #note how the above actions now require a logged in user
+  before_action :correct_user, only: [:edit, :update] #to make sure only user can edit their own profile
+ #note how could also put in a single before_action
+
   def index 
-      @users = User.all
+      @users = User.paginate(page: params[:page])
   end
 
   def show
@@ -49,8 +52,18 @@ private
 
   def logged_in_user
     unless logged_in?
+      store_location #note that this method is defined inside of a helper
       redirect_to login_url, notice: "Please Log in"
     end
+  end
+
+  def current_user?(user)
+    user && user == current_user #note the && -- helps catch edge case where user is nil (which is falsy in Ruby)
+  end
+
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to root_url unless current_user?(@user) #will redirect to a different page if trying to edit 
   end
   # if successful we want to redirect to the show page
 end

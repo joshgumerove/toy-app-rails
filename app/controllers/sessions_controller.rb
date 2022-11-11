@@ -8,7 +8,8 @@ class SessionsController < ApplicationController
       if user&.authenticate(params[:session][:password]) #note the "safe navigation" shorthand operator
       log_in user
       params[:session][:remember_me] == "1" ? remember(user) : forget(user)
-      redirect_to user #note this will redirect to the show page for this user
+      puts "this is right before redirect_back_or"
+      redirect_back_or user #note this will redirect to the show page for this user
     else
     #note the user of a ternary in rails/ruby
     redirect_to '/login'

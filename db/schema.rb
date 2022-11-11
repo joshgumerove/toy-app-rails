@@ -29,5 +29,3 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_023758) do
   end
 
 end
-
-#note the following we are using as a remember token SecureRandom.urlsafe_base64

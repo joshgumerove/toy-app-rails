@@ -21,6 +21,16 @@ module SessionsHelper
      end
         #note how we assigned a user to based on the session hash within the rails console
 
+        def redirect_back_or(default)
+            redirect_to(session[:forwarding_url] || default)
+            session.delete(:forwarding_url)
+        end
+
+        def store_location
+            session[:forwarding_url] = request.original_url if request.get?
+        end
+
+
         def logged_in?
             !current_user.nil? # if current_user is nil they are not logged_in
         end
