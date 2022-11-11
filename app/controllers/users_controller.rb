@@ -29,10 +29,19 @@ class UsersController < ApplicationController
 def edit
   @user = User.find(params[:id])
 end
+
+def update
+  puts "update should be here"
+  @user = User.find(params[:id])
+  if @user.update(user_params)
+  redirect_to @user, notice: "Profile updated"
+  else
+    render 'edit'
+  end
+end
   
 private
   def user_params
-    debug
     params.require(:user).permit(:name, :email, :password,
       :password_confirmation)
   end
