@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get '/users', to: 'users#index'
   get '/signup', to: 'users#new'
   get '/users/:id/edit', to: 'users#edit'
-  patch '/users/:id', to: 'users#update'
+  patch '/users/:id', to: 'users#update' #take not of the restful routing
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

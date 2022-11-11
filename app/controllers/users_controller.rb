@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-
+  before_action :logged_in_user, only: [:edit, :update] #will run logged_in_user before edit and update action
+  #note how the above actions now require a logged in user
   def index 
       @users = User.all
   end
@@ -44,6 +45,12 @@ private
   def user_params
     params.require(:user).permit(:name, :email, :password,
       :password_confirmation)
+  end
+
+  def logged_in_user
+    unless logged_in?
+      redirect_to login_url, notice: "Please Log in"
+    end
   end
   # if successful we want to redirect to the show page
 end
