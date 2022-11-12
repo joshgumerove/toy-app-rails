@@ -11,7 +11,8 @@ User.create!(
     name: "Example User",
     email: "examples@railstutorial.com",
     password: "foobar",
-    password_confirmation: "foobar"
+    password_confirmation: "foobar",
+    admin: true
     )
 
 99.times do |n|
@@ -25,3 +26,7 @@ User.create!(
     password_confirmation: password
   )
 end
+
+#note how to migrate and reset a database:
+#rails db:migrate:reset
+#must migrate the database before seeding it
