@@ -2,7 +2,13 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: %i[edit update index] # will run logged_in_user before edit and update action
   # note how the above actions now require a logged in user
   before_action :correct_user, only: %i[edit update] # to make sure only user can edit their own profile
-  # note how could also put in a single before_action
+  # note how could also put in a single
+  before_action :admin_user, only: :destroy
+  
+  def destroy
+    User.find(params[:id]).destroy
+    redirect_to users_url, notice: "user deleted"
+  end
 
   def index
     @users = User.paginate(page: params[:page])
@@ -67,4 +73,8 @@ class UsersController < ApplicationController
     redirect_to root_url unless current_user?(@user) # will redirect to a different page if trying to edit
   end
   # if successful we want to redirect to the show page
+
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
+  end
 end

@@ -10,6 +10,9 @@
   </p>
   <p>
     <%= link_to "Show this user", user %>
+    <% if current_user.admin? %>
+        <%= link_to "delete", user, method: :delete, data: {confirm: "You sure?"}%>
+    <% end %>
   </p>
 
 </div>
