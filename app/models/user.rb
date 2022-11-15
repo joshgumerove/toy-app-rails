@@ -24,9 +24,10 @@ class User < ApplicationRecord #note how it inherits from Application Record (wh
         update_attribute(:remember_digest, User.digest(remember_token)) #allows us to update a single attribute (note how we do not need to use self again after redifining it)
     end
 
-    def authenticated?(remember_token)
-        return false if remember_digest.nil?
-        BCrypt::Password.new(remember_digest).is_password?(remember_token)
+    def authenticated?(attribute, token)
+        digest = self.send("#{attribute}_digest")
+        return false if digest.nil?
+        BCrypt::Password.new(digest).is_password?(token)
     end
 
     def forget
@@ -62,3 +63,4 @@ end
 #note --> for has_secure_password to work we need to add bcrypt
 #after adding has_secure_password -- tests will also fail again
 #note how we cannot use dot syntax to assign values to hashes
+#note that symbols are interpolated as strings

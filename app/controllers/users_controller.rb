@@ -27,8 +27,8 @@ class UsersController < ApplicationController
     if @user.save
       # Handle a successful save.
       # redirect 'show'
-      log_in @user # available here because defined it in the sessions helper which then included in the application controller
-      redirect_to @user, notice: 'Welcome to the Sample App!' # this will redirect to the user show page
+      UserMailer.account_activation(@user).deliver_now #noe how email will appear in the logs
+      redirect_to root_url, notice: 'Check your email to activate your account' # this will redirect to the user show page
       # http://localhost:3000/users/16
       # note the RESTful URL above
     else
@@ -78,3 +78,5 @@ class UsersController < ApplicationController
     redirect_to(root_url) unless current_user.admin?
   end
 end
+
+# note the use of the send method in metaprogramming ==> a.send(:length)
