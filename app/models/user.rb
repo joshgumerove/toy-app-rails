@@ -33,7 +33,22 @@ class User < ApplicationRecord #note how it inherits from Application Record (wh
     def forget
         update_attribute(:remember_digest, nil) #reverses the remember method
     end
-    #note the use of the private keyword below
+    #note the use of the private keyword 
+    
+    def say_hello
+        puts "can run this in the rails console on an instance" #can see in the console
+    end
+
+    def send_activation_email
+        UserMailer.account_activation(self).deliver_now
+    end
+
+    def activate
+        # update_attribute(:activated, true)
+        # update_attribute(:activated_at, Time.zone.now)
+        puts "apply the updates"
+        update_columns(activated: true, activated_at: Time.zone.now)
+    end
     private
 
     def create_activation_digest
@@ -41,6 +56,7 @@ class User < ApplicationRecord #note how it inherits from Application Record (wh
       self.activation_token = User.new_token
       self.activation_digest = User.digest(activation_token)
     end
+
 end
 
 #note how we confirmed that it inherits from 

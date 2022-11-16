@@ -27,10 +27,12 @@ class UsersController < ApplicationController
     if @user.save
       # Handle a successful save.
       # redirect 'show'
+      @user.send_activation_email
       UserMailer.account_activation(@user).deliver_now #noe how email will appear in the logs
       redirect_to root_url, notice: 'Check your email to activate your account' # this will redirect to the user show page
       # http://localhost:3000/users/16
       # note the RESTful URL above
+      #note we do not route explicitly to the UserMailer 
     else
       render 'new'
     end

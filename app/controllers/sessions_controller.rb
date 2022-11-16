@@ -6,10 +6,13 @@ class SessionsController < ApplicationController
     # if user && user.authenticate(params[:session][:password]) #would return false for invalid password
     # do something here
     if user&.authenticate(params[:session][:password]) # NOTE: the "safe navigation" shorthand operator
+      if user.activated?
       log_in user
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      puts 'this is right before redirect_back_or'
       redirect_back_or user # NOTE: this will redirect to the show page for this user
+      else 
+        redirect_to root_url, notice: "account not activated"
+      end
     else
       # NOTE: the user of a ternary in rails/ruby
       redirect_to '/login'
