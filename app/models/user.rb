@@ -1,5 +1,5 @@
 class User < ApplicationRecord #note how it inherits from Application Record (which inherits from ActiveRecord::Base)
-    attr_accessor :remember_token, :activation_token #remeber attr_accessor is a method built into ruby
+    attr_accessor :remember_token, :activation_token, :reset_token #remeber attr_accessor is a method built into ruby
     before_create {self.email = email.downcase} #note -- this is an activerecord callback
     has_many :microposts
     validates :name, presence: true, length: {maximum: 50}
@@ -49,6 +49,16 @@ class User < ApplicationRecord #note how it inherits from Application Record (wh
         puts "apply the updates"
         update_columns(activated: true, activated_at: Time.zone.now)
     end
+
+    def create_reset_digest
+        self.reset_token = User.new_token
+        update_attribute(:reset_digest, User.digest(reset_token))
+        update_attribute(:reset_sent_at, Time.zone.now)
+    end
+
+    def send_password_reset_email
+      UserMailer.password_reset(self).deliver_now
+    end
     private
 
     def create_activation_digest
@@ -80,3 +90,4 @@ end
 #after adding has_secure_password -- tests will also fail again
 #note how we cannot use dot syntax to assign values to hashes
 #note that symbols are interpolated as strings
+#note how we use instance variables in the controller
