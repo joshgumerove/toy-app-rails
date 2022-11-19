@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
-  get 'users/:id', to: 'users#destroy'
+  delete 'users/:id', to: 'users#destroy'
+  get 'users/:id', to: 'users#show'
   # :users -- this is an example of a symbol
   resources :users
   get '/users', to: 'users#index'

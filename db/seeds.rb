@@ -18,6 +18,15 @@ User.create!(
   activated_at: Time.zone.now
 )
 
+User.create!(
+  name: 'Josh Gumerov',
+  email: 'jgumerove11@gmail.com',
+  password: 'password',
+  admin: true,
+  activated: true,
+  activated_at: Time.zone.now
+)
+
 99.times do |n|
   name = Faker::Name.name
   email = "example-#{n + 1}@railstutorial.com"
@@ -30,6 +39,15 @@ User.create!(
     activated: true,
     activated_at: Time.zone.now
   )
+end
+
+users = User.order(:creatd_at).take(6)
+
+users.each do |user|
+  50.times do
+    content = Faker::Lorem.sentence(word_count: 5)
+    user.microposts.create(content: content)
+  end
 end
 
 # NOTE: how to migrate and reset a database:
