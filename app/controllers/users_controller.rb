@@ -62,13 +62,6 @@ class UsersController < ApplicationController
                                  :password_confirmation) # tells what we are allowed to change
   end
 
-  def logged_in_user
-    return if logged_in?
-
-    store_location # NOTE: that this method is defined inside of a helper
-    redirect_to login_url, notice: 'Please Log in'
-  end
-
   def current_user?(user)
     user && user == current_user # NOTE: the && -- helps catch edge case where user is nil (which is falsy in Ruby)
   end

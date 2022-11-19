@@ -2,7 +2,7 @@
 
 class StaticPagesController < ApplicationController
   def home
-    # puts "what is it #{Rails.env}" not how we can find out the current rails environment
+    @micropost = current_user.microposts.build if logged_in?
   end
 
   def help; end
