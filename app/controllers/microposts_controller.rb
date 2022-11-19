@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MicropostsController < ApplicationController
   before_action :set_micropost, only: %i[show edit update destroy]
 

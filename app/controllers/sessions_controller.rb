@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   def create
     # puts params[:session][:email] note how we can access the value
@@ -7,11 +9,11 @@ class SessionsController < ApplicationController
     # do something here
     if user&.authenticate(params[:session][:password]) # NOTE: the "safe navigation" shorthand operator
       if user.activated?
-      log_in user
-      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_back_or user # NOTE: this will redirect to the show page for this user
-      else 
-        redirect_to root_url, notice: "account not activated"
+        log_in user
+        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+        redirect_back_or user # NOTE: this will redirect to the show page for this user
+      else
+        redirect_to root_url, notice: 'account not activated'
       end
     else
       # NOTE: the user of a ternary in rails/ruby

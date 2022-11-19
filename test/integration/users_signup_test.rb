@@ -1,33 +1,34 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class UsersSignupTest < ActionDispatch::IntegrationTest
-
-    test "invalid signup information" do
-      get signup_path
-      assert_no_difference 'User.count' do
-      post users_path, params: { user: { name: "",
-                                      email: "user@invalid",
-                                      password:
-                                            "foo",
-                                  password_confirmation: "bar" } }
-      end
-      assert_template 'users/new'
+  test 'invalid signup information' do
+    get signup_path
+    assert_no_difference 'User.count' do
+      post users_path, params: { user: { name: '',
+                                         email: 'user@invalid',
+                                         password:
+                                            'foo',
+                                         password_confirmation: 'bar' } }
+    end
+    assert_template 'users/new'
   end
-  test "valid signup information" do
-      get signup_path
-      assert_difference 'User.count', 1 do
-      post users_path, params: { user: { name: "Example User",
-      email: "user@example.com",
-      password:
-      "password",
-      password_confirmation: "password" } }
+  test 'valid signup information' do
+    get signup_path
+    assert_difference 'User.count', 1 do
+      post users_path, params: { user: { name: 'Example User',
+                                         email: 'user@example.com',
+                                         password:
+      'password',
+                                         password_confirmation: 'password' } }
     end
-      follow_redirect!
-      assert_template 'users/show'
-      assert is_logged_in?
-    end
+    follow_redirect!
+    assert_template 'users/show'
+    assert is_logged_in?
+  end
 end
-# note how much is being tested via these integration tests for the users 
-# pages 
+# NOTE: how much is being tested via these integration tests for the users
+# pages
 # note the vulerability when submitting the signup form
 # the name email  and password are sent over the network and are vulnerable

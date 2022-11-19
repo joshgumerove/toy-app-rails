@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :logged_in_user, only: %i[edit update index] # will run logged_in_user before edit and update action
   # note how the above actions now require a logged in user
   before_action :correct_user, only: %i[edit update] # to make sure only user can edit their own profile
   # note how could also put in a single
   before_action :admin_user, only: :destroy
-  
+
   def destroy
     User.find(params[:id]).destroy
-    redirect_to users_url, notice: "user deleted"
+    redirect_to users_url, notice: 'user deleted'
   end
 
   def index
@@ -28,11 +30,11 @@ class UsersController < ApplicationController
       # Handle a successful save.
       # redirect 'show'
       @user.send_activation_email
-      UserMailer.account_activation(@user).deliver_now #noe how email will appear in the logs
+      UserMailer.account_activation(@user).deliver_now # noe how email will appear in the logs
       redirect_to root_url, notice: 'Check your email to activate your account' # this will redirect to the user show page
       # http://localhost:3000/users/16
       # note the RESTful URL above
-      #note we do not route explicitly to the UserMailer 
+      # note we do not route explicitly to the UserMailer
     else
       render 'new'
     end
@@ -56,7 +58,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password,
-                                 :password_confirmation)
+                                 :password_confirmation) # tells what we are allowed to change
   end
 
   def logged_in_user
@@ -81,4 +83,4 @@ class UsersController < ApplicationController
   end
 end
 
-# note the use of the send method in metaprogramming ==> a.send(:length)
+# NOTE: the use of the send method in metaprogramming ==> a.send(:length)

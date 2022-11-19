@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddActivationToUsers < ActiveRecord::Migration[7.0]
   def change
     add_column :users, :activation_digest, :string
@@ -6,4 +8,4 @@ class AddActivationToUsers < ActiveRecord::Migration[7.0]
   end
 end
 
-# note how we do not need to drop the database after adding a migration
+# NOTE: how we do not need to drop the database after adding a migration
