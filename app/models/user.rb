@@ -5,7 +5,7 @@ class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token, :reset_token # remeber attr_accessor is a method built into ruby
 
   before_create { self.email = email.downcase } # NOTE: -- this is an activerecord callback
-  has_many :microposts
+  has_many :microposts, dependent: :destroy # if delete a user will now also delete all his microposts
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i # NOTE: how it is completely fine to declare a variable above a validatioin
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
