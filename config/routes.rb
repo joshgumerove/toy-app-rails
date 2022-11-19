@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
   get 'users/:id', to: 'users#destroy'
-  resources :microposts
   # :users -- this is an example of a symbol
   resources :users
   get '/users', to: 'users#index'
