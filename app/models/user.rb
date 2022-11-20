@@ -28,6 +28,10 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
   end
 
+  def feed
+    Micropost.where('user_id = ?', id)
+  end
+
   # NOTE: how we can call this directly and it will assign the remember_digest (in our example was previously nil)
   def remember
     self.remember_token = User.new_token # will have access to this attribute outside the method

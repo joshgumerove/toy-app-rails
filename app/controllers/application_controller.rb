@@ -11,4 +11,4 @@ class ApplicationController < ActionController::Base
   end
 end
 
-# note why we moved this method in here (available to other controllers then)
+# NOTE: why we moved this method in here (available to other controllers then)
