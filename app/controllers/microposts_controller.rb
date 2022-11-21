@@ -6,6 +6,7 @@ class MicropostsController < ApplicationController
 
   def create
     @micropost = current_user.microposts.build(micropost_params)
+    @micropost.image.attach(params[:micropost][:image]) #to actually attach the immag on creation
     if @micropost.save
       redirect_to root_url, notice: 'Post was created!'
     else
@@ -22,7 +23,7 @@ class MicropostsController < ApplicationController
   private
 
   def micropost_params
-    params.require(:micropost).permit(:content) #  must remember to include params at beginning
+    params.require(:micropost).permit(:content, :image) #  must remember to include params at beginning
   end
 
   def correct_user
