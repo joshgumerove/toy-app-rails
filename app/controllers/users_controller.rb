@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: %i[edit update index destroy :following] # will run logged_in_user before edit and update action
+  before_action :logged_in_user, only: %i[edit update index destroy following] # will run logged_in_user before edit and update action
   # note how the above actions now require a logged in user
   before_action :correct_user, only: %i[edit update] # to make sure only user can edit their own profile
   # note how could also put in a single
@@ -56,14 +56,14 @@ class UsersController < ApplicationController
   end
 
   def following
-    @title = "Following"
+    @title = 'Following'
     @user = User.find(params[:id])
     @users = @user.following.paginate(page: params[:page])
     render 'show_follow'
   end
 
   def followers
-    @title = "Followers"
+    @title = 'Followers'
     @user = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
