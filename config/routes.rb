@@ -19,6 +19,12 @@ Rails.application.routes.draw do
   get '/signup', to: 'users#new'
   get '/users/:id/edit', to: 'users#edit'
   patch '/users/:id', to: 'users#update' # take not of the restful routing
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+  # NOTE: the member method --> creates nested routes
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -26,4 +32,5 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets, only: %i[new create edit update]
   resources :microposts, only: %i[create destroy]
+  resources :relationships, only: %i[create destroy]
 end

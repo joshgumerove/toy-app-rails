@@ -20,6 +20,9 @@
           <%= @user.name %>
         </h1>
       </section>
+      <section>
+        <%= render 'follow_form' if logged_in? %>
+      </section>
     </aside>
 </div>
 <div class="col-md-8">
